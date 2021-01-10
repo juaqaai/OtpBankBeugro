@@ -1,0 +1,5 @@
+cd \\t-dassql.kfki.corp
+
+\\gop.iqsys.telekom.intra\install\Applications\Office 2013
+
+ajuhasz-noteboo\ajuhasz

@@ -48,16 +48,6 @@ namespace OtpFileServerWebApi
         }
 
         /// <summary>
-        /// Always throw an exception
-        /// </summary>
-        [HttpGet]
-        [Route("ThrowException")]
-        public void ThrowException()
-        {
-            throw new Exception("Example exception");
-        }
-
-        /// <summary>
         /// fájl feltöltése
         /// </summary>
         /// <param name="id"></param>

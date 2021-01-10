@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OtpFileClientWinForms
@@ -14,9 +11,16 @@ namespace OtpFileClientWinForms
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ClientForm());
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new ClientForm());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Hiba történt: {e.Message} \r\n részletek: {e.StackTrace}", "Hiba");
+            }
         }
     }
 }

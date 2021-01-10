@@ -9,7 +9,7 @@ namespace OtpFileClientWinForms
 {
     public class OtpFileClientProxy
     {
-        private const string RequestUri = "/OtpFileServerWebApi/api/dokumentumok/";
+        private const string RequestUri = "/api/dokumentumok/"; // /OtpFileServerWebApi
 
 
         public IEnumerable<string> GetFolderFiles()
@@ -24,21 +24,22 @@ namespace OtpFileClientWinForms
 
                     var content = response.Result.Content.ReadAsStringAsync();
 
-                    if (response.IsFaulted)
+                    if (response.IsFaulted || !response.Result.IsSuccessStatusCode)
                     {
-                        throw new OtpApiException
-                        {
-                            StatusCode = (int)response.Status,
-                            Content = content.Result
-                        };
+                        var message = JsonConvert.DeserializeObject<OtpApiError>(content.Result).Message;
+                        throw new OtpApiException(message, (int)response.Status);
                     }
 
                     return JsonConvert.DeserializeObject<List<string>>(content.Result);
                 }
             }
-            catch (Exception ex)
+            catch (OtpApiException ex)
             {
                 throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new OtpApiException(ex.Message, ex);
             }
         }
 
@@ -54,13 +55,10 @@ namespace OtpFileClientWinForms
 
                     var content = response.Result.Content.ReadAsStringAsync();
 
-                    if (response.IsFaulted)
+                    if (response.IsFaulted || !response.Result.IsSuccessStatusCode)
                     {
-                        throw new OtpApiException
-                        {
-                            StatusCode = (int)response.Status,
-                            Content = content.Result
-                        };
+                        var message = JsonConvert.DeserializeObject<OtpApiError>(content.Result).Message;
+                        throw new OtpApiException(message, (int)response.Status);
                     }
 
                     return JsonConvert.DeserializeObject<OtpFileDownload>(content.Result);
@@ -72,11 +70,7 @@ namespace OtpFileClientWinForms
             }
             catch (Exception ex)
             {
-                throw new OtpApiException
-                {
-                    StatusCode = ex.HResult,
-                    Content = ex.StackTrace
-                };
+                throw new OtpApiException(ex.Message, ex);
             }
         }
 
@@ -96,11 +90,8 @@ namespace OtpFileClientWinForms
 
                     if (response.IsFaulted || !response.Result.IsSuccessStatusCode)
                     {
-                        throw new OtpApiException
-                        {
-                            StatusCode = (int)response.Result.StatusCode,
-                            Content = resultContent.Result
-                        };
+                        var message = JsonConvert.DeserializeObject<OtpApiError>(resultContent.Result).Message;
+                        throw new OtpApiException(message, (int)response.Status);
                     }
                 }
             }
@@ -110,11 +101,7 @@ namespace OtpFileClientWinForms
             }
             catch (Exception ex)
             {
-                throw new OtpApiException
-                {
-                    StatusCode = ex.HResult,
-                    Content = ex.StackTrace
-                };
+                throw new OtpApiException(ex.Message, ex);
             }
         }
 

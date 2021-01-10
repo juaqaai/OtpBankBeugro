@@ -57,6 +57,7 @@
     <Compile Include="ClientForm.Designer.cs">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="OtpApiError.cs" />
     <Compile Include="OtpFileUpload.cs" />
     <Compile Include="OtpFileDownload.cs" />
     <Compile Include="OtpApiException.cs" />

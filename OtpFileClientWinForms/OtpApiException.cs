@@ -6,7 +6,14 @@ namespace OtpFileClientWinForms
     {
         public int StatusCode { get; set; }
 
-        public string Content { get; set; }
+        public OtpApiException(string message) : base(message) { }
+
+        public OtpApiException(string message, int statusCode) : base(message)
+        {
+            StatusCode = statusCode;
+        }
+
+        public OtpApiException(string message, Exception innerException) : base(message, innerException) { }
     }
 
 }

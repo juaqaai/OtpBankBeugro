@@ -9,8 +9,8 @@ namespace OtpFileClientWinForms
 {
     public class OtpFileClientProxy
     {
-        private const string RequestUri = "/api/dokumentumok/"; // /OtpFileServerWebApi
-
+        private const string RequestUri = "/api/dokumentumok/";
+        // private const string RequestUri = "/OtpFileServerWebApi/api/dokumentumok/"; 
 
         public IEnumerable<string> GetFolderFiles()
         {
